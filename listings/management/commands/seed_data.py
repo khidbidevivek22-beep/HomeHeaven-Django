@@ -1,4 +1,4 @@
-﻿import os
+import os
 from datetime import date, timedelta
 from decimal import Decimal
 
@@ -94,7 +94,7 @@ class Command(BaseCommand):
         tenant_profile.role = 'tenant'
         tenant_profile.save()
 
-        image_dir = os.path.join(settings.MEDIA_ROOT, 'listings')
+        image_dir = os.path.join(settings.BASE_DIR, 'public_demo_assets', 'media', 'listings')
         image_files = []
         if os.path.isdir(image_dir):
             image_files = sorted([
@@ -139,7 +139,7 @@ class Command(BaseCommand):
             if made:
                 created += 1
                 prop.amenities.set(amenity_objs[:6 + (index % 5)])
-                if image_files:
+            if image_files and not PropertyImage.objects.filter(property=prop).exists():
                     for img_index in range(3):
                         filename = image_files[(index * 3 + img_index) % len(image_files)]
                         PropertyImage.objects.create(

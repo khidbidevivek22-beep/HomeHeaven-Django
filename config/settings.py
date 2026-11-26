@@ -143,3 +143,5 @@ if os.environ.get('RENDER'):
     }
 
 SECURE_REFERRER_POLICY = 'strict-origin-when-cross-origin'
+
+WHITENOISE_ROOT = BASE_DIR / 'public_demo_assets'
