@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Login — HomeHeaven{% endblock %}
+{% block content %}
+<div class="auth-wrap">
+  <div class="auth-card">
+    <span class="eyebrow">Welcome back</span>
+    <h1>Log in</h1>
+    <p>Save homes, compare them and request tours.</p>
+    <form method="post">
+      {% csrf_token %}
+      {% for field in form %}
+        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+        {{ field }}
+        {% for error in field.errors %}<span class="field-error">{{ error }}</span>{% endfor %}
+      {% endfor %}
+      <input type="hidden" name="next" value="{{ next }}">
+      <button class="btn btn-primary btn-block" type="submit" style="margin-top:18px">Log in</button>
+    </form>
+    <div class="auth-alt">New here? <a href="{% url 'accounts:signup' %}">Create an account</a></div>
+  </div>
+</div>
+{% endblock %}

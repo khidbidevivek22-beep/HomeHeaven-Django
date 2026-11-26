@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}HomeHeaven — Verified rental homes, zero brokerage{% endblock %}
+{% block content %}
+
+<section class="hero">
+  <div class="container hero-grid">
+    <div class="hero-copy">
+      <span class="eyebrow"><i class="fa-solid fa-shield-halved"></i> Verified homes · No brokerage</span>
+      <h1>Find a home you'll <em>actually</em> love renting.</h1>
+      <p class="hero-lede">Real listings, clear rent breakdowns and direct owner contact. Browse freely, shortlist without visiting, and book a tour when you're ready.</p>
+      <form class="search-panel" action="{% url 'listings:list' %}" method="get">
+        <div class="search-row">
+          <label><span>Where</span><input type="text" name="q" placeholder="Area, locality or city" list="city-options"></label>
+          <datalist id="city-options">{% for city in site_cities %}<option value="{{ city.name }}">{% endfor %}</datalist>
+          <label><span>Move in</span><input type="text" name="move_in" placeholder="Anytime"></label>
+          <label><span>Beds & budget</span><select name="bedrooms"><option value="">Any beds</option><option value="1">1+ BHK</option><option value="2">2+ BHK</option><option value="3">3+ BHK</option></select></label>
+          <button class="btn btn-primary" type="submit"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
+        </div>
+        <div class="quick-filters">
+          <span>Popular:</span>
+          <a href="{% url 'listings:list' %}?verified=1">Verified</a>
+          <a href="{% url 'listings:list' %}?no_brokerage=1">No brokerage</a>
+          <a href="{% url 'listings:list' %}?furnishing=fully">Furnished</a>
+          <a href="{% url 'listings:list' %}?max_rent=15000">Under ₹15k</a>
+        </div>
+      </form>
+      <div class="trust-row">
+        <div><strong>{{ site_total_properties|default:'19' }}+</strong><span>homes listed</span></div>
+        <div><strong>3</strong><span>cities</span></div>
+        <div><strong>0</strong><span>brokerage</span></div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      {% if featured.0.cover_image %}<img src="{{ featured.0.cover_image.image.url }}" alt="Featured rental home">{% else %}<div class="hero-placeholder"><i class="fa-solid fa-house-chimney"></i></div>{% endif %}
+      <div class="hero-card">
+        <span class="badge badge-verified"><i class="fa-solid fa-circle-check"></i> Verified listing</span>
+        <strong>{% if featured.0 %}{{ featured.0.title }}{% else %}Sunshine Residency{% endif %}</strong>
+        <span>{% if featured.0 %}{{ featured.0.locality }}, {{ featured.0.city.name }}{% else %}Koregaon Park, Pune{% endif %}</span>
+        <b>₹{% if featured.0 %}{{ featured.0.rent }}{% else %}18,500{% endif %}<small>/month</small></b>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <div><span class="eyebrow">Browse by city</span><h2>Homes where you want to be</h2></div>
+      <a class="text-link" href="{% url 'listings:list' %}">See all homes <i class="fa-solid fa-arrow-right"></i></a>
+    </div>
+    <div class="city-grid">
+      {% for city in site_cities %}
+        <a class="city-card" href="{% url 'listings:list' %}?city={{ city.slug }}">
+          {% if city.image %}<img src="{{ city.image.url }}" alt="{{ city.name }}">{% else %}<div class="city-placeholder"><i class="fa-solid fa-city"></i></div>{% endif %}
+          <div><strong>{{ city.name }}</strong><span>{{ city.state }}</span></div>
+        </a>
+      {% empty %}
+        <a class="city-card" href="{% url 'listings:list' %}"><div class="city-placeholder"><i class="fa-solid fa-city"></i></div><div><strong>Pune</strong><span>Maharashtra</span></div></a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section section-tint">
+  <div class="container">
+    <div class="section-head">
+      <div><span class="eyebrow">Handpicked</span><h2>Homes worth a visit</h2></div>
+      <a class="text-link" href="{% url 'listings:list' %}">View all <i class="fa-solid fa-arrow-right"></i></a>
+    </div>
+    <div class="property-grid">
+      {% for property in featured %}{% include 'partials/property_card.html' %}{% empty %}<p class="muted">Listings are being prepared.</p>{% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head"><div><span class="eyebrow">Why HomeHeaven</span><h2>Renting should be simple</h2></div></div>
+    <div class="feature-grid">
+      <div class="feature-card"><span class="feature-icon"><i class="fa-solid fa-magnifying-glass-chart"></i></span><h3>Search that makes sense</h3><p>Filter by city, budget, beds, furnishing and amenities — then see results on a map.</p></div>
+      <div class="feature-card"><span class="feature-icon"><i class="fa-solid fa-shield-halved"></i></span><h3>Verified, broker-free</h3><p>Every listing is checked. Talk to owners directly and skip brokerage completely.</p></div>
+      <div class="feature-card"><span class="feature-icon"><i class="fa-solid fa-heart"></i></span><h3>Shortlist without visiting</h3><p>Save homes, compare them side by side and request a tour only when you're sure.</p></div>
+      <div class="feature-card"><span class="feature-icon"><i class="fa-solid fa-file-invoice-dollar"></i></span><h3>No bill surprises</h3><p>Rent, deposit and maintenance shown upfront before you make a move.</p></div>
+    </div>
+  </div>
+</section>
+
+{% if reviews %}
+<section class="section section-tint">
+  <div class="container">
+    <div class="section-head"><div><span class="eyebrow">Real stories</span><h2>Renters found their place</h2></div></div>
+    <div class="review-grid">
+      {% for review in reviews %}
+        <blockquote class="review-card">
+          <div class="stars">{% for i in "12345" %}<i class="fa-solid fa-star"></i>{% endfor %}</div>
+          <p>“{{ review.comment }}”</p>
+          <footer><strong>{{ review.author.get_full_name|default:review.author.username }}</strong><span>{{ review.property.locality }}</span></footer>
+        </blockquote>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<section class="cta-band">
+  <div class="container cta-inner">
+    <div><h2>Ready to find your next home?</h2><p>Browse without signing up. Save and compare when you're ready.</p></div>
+    <a class="btn btn-light" href="{% url 'listings:list' %}">Start searching <i class="fa-solid fa-arrow-right"></i></a>
+  </div>
+</section>
+{% endblock %}

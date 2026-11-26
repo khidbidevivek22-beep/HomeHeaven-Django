@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Saved homes — HomeHeaven{% endblock %}
+{% block content %}
+<section class="section">
+  <div class="container">
+    <div class="section-head"><div><span class="eyebrow">Your shortlist</span><h1>Saved homes</h1><p class="muted">Compare your favourites before booking a visit.</p></div><a class="btn btn-outline" href="{% url 'listings:compare' %}?{% for p in properties %}id={{ p.id }}&{% endfor %}"><i class="fa-solid fa-code-compare"></i> Compare selected</a></div>
+    {% if properties %}
+      <div class="property-grid">{% for property in properties %}{% include 'partials/property_card.html' %}{% endfor %}</div>
+    {% else %}
+      <div class="empty-state"><i class="fa-regular fa-heart"></i><h3>No saved homes yet</h3><p class="muted">Tap the heart on any listing to keep it here.</p><a class="btn btn-primary" href="{% url 'listings:list' %}">Browse homes</a></div>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

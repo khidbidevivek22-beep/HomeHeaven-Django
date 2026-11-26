@@ -1,0 +1,26 @@
+{% load static %}
+<article class="property-card" data-property-id="{{ property.id }}">
+  <a class="card-image" href="{{ property.get_absolute_url }}">
+    {% if property.cover_image %}<img src="{{ property.cover_image.image.url }}" alt="{{ property.title }}" loading="lazy">{% else %}<div class="no-image"><i class="fa-solid fa-house"></i></div>{% endif %}
+    {% if property.is_verified %}<span class="badge badge-verified"><i class="fa-solid fa-circle-check"></i> Verified</span>{% endif %}
+    {% if property.is_featured %}<span class="badge badge-featured">Featured</span>{% endif %}
+  </a>
+  <div class="card-body">
+    <div class="card-top">
+      <a class="card-title" href="{{ property.get_absolute_url }}">{{ property.title }}</a>
+      {% if user.is_authenticated %}
+        <button class="save-btn {% if property.id in saved_ids %}is-saved{% endif %}" type="button" data-url="{% url 'listings:toggle_save' property.id %}" title="Save home"><i class="{% if property.id in saved_ids %}fa-solid{% else %}fa-regular{% endif %} fa-heart"></i></button>
+      {% endif %}
+    </div>
+    <p class="card-location"><i class="fa-solid fa-location-dot"></i> {{ property.locality }}, {{ property.city.name }}</p>
+    <div class="card-meta">
+      <span><i class="fa-solid fa-bed"></i> {{ property.bedrooms }} BHK</span>
+      <span><i class="fa-solid fa-bath"></i> {{ property.bathrooms }}</span>
+      <span><i class="fa-solid fa-ruler-combined"></i> {{ property.area_sqft }} sqft</span>
+    </div>
+    <div class="card-bottom">
+      <div><strong class="price">₹{{ property.rent|floatformat:0 }}</strong><span class="per-month">/month</span></div>
+      <a class="btn btn-outline btn-sm" href="{{ property.get_absolute_url }}">View details</a>
+    </div>
+  </div>
+</article>

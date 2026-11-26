@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}How it works — HomeHeaven{% endblock %}
+{% block content %}
+<section class="section">
+  <div class="container" style="max-width:900px">
+    <div class="section-head"><div><span class="eyebrow">Simple process</span><h1>How HomeHeaven works</h1><p class="muted">From browsing to moving in — in four clear steps.</p></div></div>
+    <div class="feature-grid" style="grid-template-columns:repeat(2,1fr)">
+      <div class="feature-card"><span class="feature-icon">1</span><h3>Search freely</h3><p>No signup needed. Filter by city, budget, beds, furnishing and amenities, then explore results on the map.</p></div>
+      <div class="feature-card"><span class="feature-icon">2</span><h3>Shortlist without visiting</h3><p>Save homes you like and compare rent, deposit, maintenance and features side by side.</p></div>
+      <div class="feature-card"><span class="feature-icon">3</span><h3>Request a tour</h3><p>Log in, send an enquiry with your preferred date and talk directly to the owner — no broker in between.</p></div>
+      <div class="feature-card"><span class="feature-icon">4</span><h3>Move in with clarity</h3><p>Everything — rent breakdown, lease term and verification status — is visible before you decide.</p></div>
+    </div>
+    <div style="margin-top:30px"><a class="btn btn-primary" href="{% url 'listings:list' %}">Start searching</a></div>
+  </div>
+</section>
+{% endblock %}

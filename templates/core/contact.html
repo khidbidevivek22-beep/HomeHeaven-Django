@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Contact — HomeHeaven{% endblock %}
+{% block content %}
+<section class="section">
+  <div class="container" style="max-width:620px">
+    <span class="eyebrow">Get in touch</span>
+    <h1>Contact us</h1>
+    <p class="muted">Questions about a listing or the platform? Send a message.</p>
+    <div class="auth-card" style="margin-top:24px">
+      <form method="post">
+        {% csrf_token %}
+        {% for field in form %}
+          <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+          {{ field }}
+          {% for error in field.errors %}<span class="field-error">{{ error }}</span>{% endfor %}
+        {% endfor %}
+        <button class="btn btn-primary btn-block" type="submit" style="margin-top:16px"><i class="fa-solid fa-paper-plane"></i> Send message</button>
+      </form>
+    </div>
+  </div>
+</section>
+{% endblock %}

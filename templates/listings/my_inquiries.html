@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}My enquiries — HomeHeaven{% endblock %}
+{% block content %}
+<section class="section">
+  <div class="container">
+    <div class="section-head"><div><span class="eyebrow">Your activity</span><h1>My enquiries</h1></div></div>
+    {% for inquiry in inquiries %}
+      <div class="inquiry-row">
+        <div><a href="{{ inquiry.property.get_absolute_url }}" style="font-weight:700">{{ inquiry.property.title }}</a><div class="muted" style="font-size:13px">{{ inquiry.created_at|date:'d M Y, h:i A' }} · {{ inquiry.email }}</div><p class="muted" style="font-size:13px;margin:6px 0 0">{{ inquiry.message|default:'Tour request sent.' }}</p></div>
+        <span class="status-pill">{{ inquiry.get_status_display }}</span>
+      </div>
+    {% empty %}
+      <div class="empty-state"><i class="fa-regular fa-envelope"></i><h3>No enquiries yet</h3><p class="muted">Request a tour on any listing and track it here.</p><a class="btn btn-primary" href="{% url 'listings:list' %}">Browse homes</a></div>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

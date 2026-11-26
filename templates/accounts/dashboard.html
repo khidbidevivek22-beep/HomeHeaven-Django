@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Dashboard — HomeHeaven{% endblock %}
+{% block content %}
+<section class="section">
+  <div class="container">
+    <div class="section-head"><div><span class="eyebrow">Your space</span><h1>Hello, {{ user.first_name|default:user.username }}</h1><p class="muted">Role: {{ profile.get_role_display }}</p></div>{% if profile.is_admin_role %}<a class="btn btn-outline" href="/admin/">Django admin</a>{% endif %}</div>
+    <div class="dashboard-grid">
+      <a class="stat-card" href="{% url 'listings:saved' %}"><strong>{{ saved_count }}</strong><span>Saved homes</span></a>
+      <a class="stat-card" href="{% url 'listings:my_inquiries' %}"><strong>{{ inquiry_count }}</strong><span>Enquiries sent</span></a>
+      <a class="stat-card" href="{% url 'listings:list' %}"><strong>{{ property_count }}</strong><span>Homes available</span></a>
+    </div>
+    <div style="margin-top:26px;display:flex;gap:10px;flex-wrap:wrap"><a class="btn btn-primary" href="{% url 'listings:list' %}">Search homes</a><a class="btn btn-outline" href="{% url 'listings:compare' %}">Compare saved homes</a></div>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}About us — HomeHeaven{% endblock %}
+{% block content %}
+<section class="section">
+  <div class="container" style="max-width:860px">
+    <span class="eyebrow">Our story</span>
+    <h1>Renting should feel straightforward</h1>
+    <p class="muted">HomeHeaven was built around a simple frustration: finding a rental home means juggling unreliable listings, hidden costs and broker calls. We put the important things in one place — verified homes, honest rent breakdowns, real photos and direct owner contact.</p>
+    <div class="feature-grid" style="grid-template-columns:repeat(3,1fr);margin-top:34px">
+      <div class="feature-card"><span class="feature-icon"><i class="fa-solid fa-eye"></i></span><h3>Transparency</h3><p>Rent, deposit and maintenance shown upfront.</p></div>
+      <div class="feature-card"><span class="feature-icon"><i class="fa-solid fa-user-shield"></i></span><h3>Trust</h3><p>Listings marked verified after a manual check.</p></div>
+      <div class="feature-card"><span class="feature-icon"><i class="fa-solid fa-handshake"></i></span><h3>Direct contact</h3><p>Talk to owners without paying brokerage.</p></div>
+    </div>
+  </div>
+</section>
+{% endblock %}

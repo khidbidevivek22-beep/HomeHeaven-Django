@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Compare homes — HomeHeaven{% endblock %}
+{% block content %}
+<section class="section">
+  <div class="container">
+    <div class="section-head"><div><span class="eyebrow">Side by side</span><h1>Compare homes</h1></div><a class="btn btn-outline" href="{% url 'listings:saved' %}">Back to saved</a></div>
+    {% if properties %}
+      <div style="overflow-x:auto"><table class="compare-table">
+        <thead><tr><th>Home</th>{% for property in properties %}<th><a href="{{ property.get_absolute_url }}">{{ property.title }}</a></th>{% endfor %}</tr></thead>
+        <tbody>
+          <tr><th>Rent</th>{% for property in properties %}<td>₹{{ property.rent|floatformat:0 }}/month</td>{% endfor %}</tr>
+          <tr><th>Deposit</th>{% for property in properties %}<td>₹{{ property.deposit|floatformat:0 }}</td>{% endfor %}</tr>
+          <tr><th>Maintenance</th>{% for property in properties %}<td>₹{{ property.maintenance|floatformat:0 }}</td>{% endfor %}</tr>
+          <tr><th>Bedrooms</th>{% for property in properties %}<td>{{ property.bedrooms }} BHK</td>{% endfor %}</tr>
+          <tr><th>Area</th>{% for property in properties %}<td>{{ property.area_sqft }} sqft</td>{% endfor %}</tr>
+          <tr><th>Furnishing</th>{% for property in properties %}<td>{{ property.get_furnishing_display }}</td>{% endfor %}</tr>
+          <tr><th>Location</th>{% for property in properties %}<td>{{ property.locality }}, {{ property.city.name }}</td>{% endfor %}</tr>
+          <tr><th>Verified</th>{% for property in properties %}<td>{% if property.is_verified %}<i class="fa-solid fa-circle-check" style="color:var(--green)"></i> Yes{% else %}No{% endif %}</td>{% endfor %}</tr>
+        </tbody>
+      </table></div>
+    {% else %}
+      <div class="empty-state"><i class="fa-solid fa-code-compare"></i><h3>Nothing to compare</h3><p class="muted">Save a few homes first, then compare them here.</p><a class="btn btn-primary" href="{% url 'listings:list' %}">Find homes</a></div>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

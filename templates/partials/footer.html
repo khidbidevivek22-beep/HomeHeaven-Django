@@ -1,0 +1,28 @@
+{% load static %}
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div>
+      <a class="brand" href="{% url 'core:home' %}"><span class="brand-mark"><i class="fa-solid fa-house-chimney"></i></span><span>Home<span>Heaven</span></span></a>
+      <p class="muted">Real rental homes. Verified owners. No brokerage.</p>
+    </div>
+    <div>
+      <h4>Explore</h4>
+      <a href="{% url 'listings:list' %}?city=pune">Homes in Pune</a>
+      <a href="{% url 'listings:list' %}?city=mumbai">Homes in Mumbai</a>
+      <a href="{% url 'listings:list' %}?city=bangalore">Homes in Bangalore</a>
+    </div>
+    <div>
+      <h4>Company</h4>
+      <a href="{% url 'core:about' %}">About us</a>
+      <a href="{% url 'core:how_it_works' %}">How it works</a>
+      <a href="{% url 'core:contact' %}">Contact</a>
+    </div>
+    <div>
+      <h4>Trust</h4>
+      <p class="muted"><i class="fa-solid fa-shield-halved"></i> Verified listings</p>
+      <p class="muted"><i class="fa-solid fa-indian-rupee-sign"></i> Zero brokerage</p>
+      <p class="muted"><i class="fa-solid fa-file-signature"></i> Clear agreements</p>
+    </div>
+  </div>
+  <div class="container footer-bottom">© 2026 HomeHeaven. Built for renters, by renters.</div>
+</footer>
