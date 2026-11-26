@@ -141,3 +141,5 @@ if os.environ.get('RENDER'):
             },
         },
     }
+
+SECURE_REFERRER_POLICY = 'strict-origin-when-cross-origin'
