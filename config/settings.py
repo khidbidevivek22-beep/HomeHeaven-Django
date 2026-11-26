@@ -145,3 +145,22 @@ if os.environ.get('RENDER'):
 SECURE_REFERRER_POLICY = 'strict-origin-when-cross-origin'
 
 WHITENOISE_ROOT = BASE_DIR / 'public_demo_assets'
+
+# Render error logging
+if os.environ.get('RENDER'):
+    LOGGING = {
+        'version': 1,
+        'disable_existing_loggers': False,
+        'handlers': {
+            'console': {
+                'class': 'logging.StreamHandler',
+            },
+        },
+        'loggers': {
+            'django': {
+                'handlers': ['console'],
+                'level': 'ERROR',
+                'propagate': False,
+            },
+        },
+    }
