@@ -68,6 +68,10 @@ class Command(BaseCommand):
                 slug=slug,
                 defaults={'name': name, 'state': state, 'latitude': lat, 'longitude': lng, 'is_active': True},
             )
+            city_photo = settings.BASE_DIR / "public_demo_assets" / "media" / "cities" / f"{slug}.jpg"
+            if city_photo.is_file():
+                city.image = f"cities/{slug}.jpg"
+                city.save(update_fields=["image"])
             city_objs[slug] = city
 
         for name, icon, category in AMENITIES:
